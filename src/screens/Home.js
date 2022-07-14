@@ -20,8 +20,9 @@ export default function Home() {
       const userData = userDataTx.getAll();
 
       userData.onsuccess = (query) => {
-        console.log(query.srcElement.result.map((res) => res));
-        setUserIDB(query.srcElement.result.map((res) => res.value));
+        console.log(query.srcElement.result);
+        const res = query.srcElement.result.map((res) => setUserIDB(res.value));
+        // res.map((obj) => setUserIDB(obj));
       };
 
       userData.onerror = (query) => {
@@ -56,58 +57,51 @@ export default function Home() {
   return (
     <>
       {/* <Header /> */}
-      <div className="container text-center">
-        <h1 className="mt-3 mb-5">Home Page</h1>
+      <div className="container">
+        <h1 className="mt-3 mb-5 text-center">Home Page</h1>
         {user?.uid === undefined ? (
-          <p>
+          <p className="text-center">
             <Link to="/login">Login</Link> to view data
           </p>
         ) : (
           <div>
-            <button
-              onClick={logout}
-              className="btn logoutbtn"
-              style={{ border: "0.5px solid black" }}
-            >
-              Sign out
-            </button>
             <h3 className=" mt-4">
               <u>User Data</u>
             </h3>
             <br />
             {/* displaying user data */}
-            {userIDB.map((user, index) => (
-              <>
-                <div>
-                  <b>profilePhoto: </b>
-                  <img
-                    src={user.photoURL}
-                    width="100px"
-                    height="100px"
-                    alt="upload profile picture to your email"
-                  />
-                </div>
-                <div>
-                  <b>uid: </b> {user.uid}
-                </div>
-                <div>
-                  <b>displayName: </b>
-                  {user.displayName}
-                </div>
-                <div>
-                  <b>email:</b> {user.email}
-                </div>
-                <div>
-                  <b>phoneNumber: </b> {user.phoneNumber}
-                </div>
-                <div>
-                  <b>createdAt: </b> {user.createdAt}
-                </div>
-                <div>
-                  <b>lastLoginAt: </b> {user.lastLoginAt}
-                </div>
-              </>
-            ))}
+            {/* {userIDB.map((user, index) => ( */}
+            <>
+              <div>
+                <b>profilePhoto: </b>
+                <img
+                  src={userIDB.photoURL}
+                  width="100px"
+                  height="100px"
+                  alt="upload profile picture to your email"
+                />
+              </div>
+              <div>
+                <b>uid: </b> {userIDB.uid}
+              </div>
+              <div>
+                <b>displayName: </b>
+                {userIDB.displayName}
+              </div>
+              <div>
+                <b>email:</b> {userIDB.email}
+              </div>
+              <div>
+                <b>phoneNumber: </b> {userIDB.phoneNumber}
+              </div>
+              <div>
+                <b>createdAt: </b> {userIDB.createdAt}
+              </div>
+              <div>
+                <b>lastLoginAt: </b> {userIDB.lastLoginAt}
+              </div>
+            </>
+            {/* ))} */}
           </div>
         )}
       </div>
