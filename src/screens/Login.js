@@ -13,7 +13,6 @@ import Header from "../components/Header";
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
